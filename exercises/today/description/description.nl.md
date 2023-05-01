@@ -11,12 +11,10 @@ Bouw een ROP-keten die de schadelijke functie `today` aanroept met één argumen
     112a:	48 83 3d c6 2e 00 00 	cmpq   $0x0,0x2ec6(%rip)        # 3ff8 <__cxa_finalize@GLIBC_2.2.5>
     1131:	00 
     1132:	48 89 e5             	mov    %rsp,%rbp
-    1135:	74 0c                	je     1143 <__do_global_dtors_aux+0x23>
-    1137:	48 8b 3d 02 2f 00 00 	mov    0x2f02(%rip),%rdi        # 4040 <__dso_handle>
-    113e:	e8 35 ff ff ff       	callq  1078 <__cxa_finalize@plt>
-..
+...
 0000000000001160 <frame_dummy>:
     1160:	e9 7b ff ff ff       	jmpq   10e0 <register_tm_clones>
+...
 0000000000001165 <today>:
     1165:	55                   	push   %rbp
     1166:	48 89 e5             	mov    %rsp,%rbp
@@ -30,19 +28,25 @@ Bouw een ROP-keten die de schadelijke functie `today` aanroept met één argumen
     1187:	e8 a4 fe ff ff       	callq  1030 <printf@plt>
     118c:	b8 00 00 00 00       	mov    $0x0,%eax
     1191:	c9                   	leaveq 
-    1192:	c3                   	retq
+    1192:	c3                   	retq   
 ...
-0000000000001234 <main>:
-    1234:	55                   	push   %rbp
-    1235:	48 89 e5             	mov    %rsp,%rbp
-    1238:	48 83 ec 10          	sub    $0x10,%rsp
-    123c:	89 7d fc             	mov    %edi,-0x4(%rbp)
-    123f:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
-    1243:	83 7d fc 02          	cmpl   $0x2,-0x4(%rbp)
-    1247:	74 0a                	je     1253 <main+0x1f>
-    1249:	bf 00 00 00 00       	mov    $0x0,%edi
-    124e:	e8 1d fe ff ff       	callq  1070 <exit@plt>
-    1253:	48 8b 05 8e 2d 00 00 	mov    0x2d8e(%rip),%rax        # 3fe8 <exit@GLIBC_2.2.5>
-    125a:	48 89 c6             	mov    %rax,%rsi
+0000000000001193 <helpful>:
+    1193:	55                   	push   %rbp
+    1194:	48 89 e5             	mov    %rsp,%rbp
+    1197:	bf e7 07 00 00       	mov    $0x7e7,%edi
+    119c:	90                   	nop
+    119d:	5d                   	pop    %rbp
+    119e:	c3                   	retq   
+...
+0000000000001240 <main>:
+    1240:	55                   	push   %rbp
+    1241:	48 89 e5             	mov    %rsp,%rbp
+    1244:	48 83 ec 10          	sub    $0x10,%rsp
+    1248:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    124b:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+    124f:	83 7d fc 02          	cmpl   $0x2,-0x4(%rbp)
+    1253:	74 0a                	je     125f <main+0x1f>
+    1255:	bf 00 00 00 00       	mov    $0x0,%edi
+    125a:	e8 11 fe ff ff       	callq  1070 <exit@plt>
 ...
 ```

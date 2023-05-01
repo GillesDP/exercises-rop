@@ -12,6 +12,10 @@ int today(int year) {
   return 0;
 }
 
+void helpful() {
+  __asm__ ("mov $2023, %edi");
+}
+
 void exploit(char* stack) {
   size_t buffer[1] = {0xFF};
   int i = 0;
