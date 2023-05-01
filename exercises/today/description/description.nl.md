@@ -13,36 +13,36 @@ Bouw een ROP-keten die de schadelijke functie `today` aanroept met één argumen
     1132:	48 89 e5             	mov    %rsp,%rbp
     1135:	74 0c                	je     1143 <__do_global_dtors_aux+0x23>
     1137:	48 8b 3d 02 2f 00 00 	mov    0x2f02(%rip),%rdi        # 4040 <__dso_handle>
-    113e:	e8 35 ff ff ff       	call   1078 <__cxa_finalize@plt>
-    1143:	e8 68 ff ff ff       	call   10b0 <deregister_tm_clones>
-...
-
+    113e:	e8 35 ff ff ff       	callq  1078 <__cxa_finalize@plt>
+..
 0000000000001160 <frame_dummy>:
-    1160:	e9 7b ff ff ff       	jmp    10e0 <register_tm_clones>
-
+    1160:	e9 7b ff ff ff       	jmpq   10e0 <register_tm_clones>
 0000000000001165 <today>:
     1165:	55                   	push   %rbp
     1166:	48 89 e5             	mov    %rsp,%rbp
-    1169:	48 83 ec 10          	sub    $0x10,%rsp
-    116d:	89 7d fc             	mov    %edi,-0x4(%rbp)
-    1170:	8b 45 fc             	mov    -0x4(%rbp),%eax
-    1173:	89 c6                	mov    %eax,%esi
-    1175:	48 8d 3d 88 0e 00 00 	lea    0xe88(%rip),%rdi        # 2004 <_IO_stdin_used+0x4>
-    117c:	b8 00 00 00 00       	mov    $0x0,%eax
-    1181:	e8 aa fe ff ff       	call   1030 <printf@plt>
-    1186:	b8 00 00 00 00       	mov    $0x0,%eax
-    118b:	c9                   	leave  
-    118c:	c3                   	ret
+    1169:	48 83 e4 f0          	and    $0xfffffffffffffff0,%rsp
+    116d:	48 83 ec 10          	sub    $0x10,%rsp
+    1171:	89 7c 24 0c          	mov    %edi,0xc(%rsp)
+    1175:	8b 44 24 0c          	mov    0xc(%rsp),%eax
+    1179:	89 c6                	mov    %eax,%esi
+    117b:	48 8d 3d 82 0e 00 00 	lea    0xe82(%rip),%rdi        # 2004 <_IO_stdin_used+0x4>
+    1182:	b8 00 00 00 00       	mov    $0x0,%eax
+    1187:	e8 a4 fe ff ff       	callq  1030 <printf@plt>
+    118c:	b8 00 00 00 00       	mov    $0x0,%eax
+    1191:	c9                   	leaveq 
+    1192:	c3                   	retq
 ...
-000000000000122e <main>:
-    122e:	55                   	push   %rbp
-    122f:	48 89 e5             	mov    %rsp,%rbp
-    1232:	48 83 ec 10          	sub    $0x10,%rsp
-    1236:	89 7d fc             	mov    %edi,-0x4(%rbp)
-    1239:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
-    123d:	83 7d fc 02          	cmpl   $0x2,-0x4(%rbp)
-    1241:	74 0a                	je     124d <main+0x1f>
-    1243:	bf 00 00 00 00       	mov    $0x0,%edi
-    1248:	e8 23 fe ff ff       	call   1070 <exit@plt>
+0000000000001234 <main>:
+    1234:	55                   	push   %rbp
+    1235:	48 89 e5             	mov    %rsp,%rbp
+    1238:	48 83 ec 10          	sub    $0x10,%rsp
+    123c:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    123f:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+    1243:	83 7d fc 02          	cmpl   $0x2,-0x4(%rbp)
+    1247:	74 0a                	je     1253 <main+0x1f>
+    1249:	bf 00 00 00 00       	mov    $0x0,%edi
+    124e:	e8 1d fe ff ff       	callq  1070 <exit@plt>
+    1253:	48 8b 05 8e 2d 00 00 	mov    0x2d8e(%rip),%rax        # 3fe8 <exit@GLIBC_2.2.5>
+    125a:	48 89 c6             	mov    %rax,%rsi
 ...
 ```

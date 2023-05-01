@@ -5,6 +5,8 @@
 
 extern char __executable_start;
 
+int today(int year) __attribute__((force_align_arg_pointer));
+
 int today(int year) {
   printf("The year is %d!", year);
   return 0;
