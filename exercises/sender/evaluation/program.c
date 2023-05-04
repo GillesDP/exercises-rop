@@ -17,8 +17,8 @@ void generate_payload() {
     product += product*i;
     i--;
   }
-  __asm__ ("mov 0x4(%rsp), %edi");
-  __asm__ ("mov 0x8(%rsp), %esi");
+  __asm__ ("pop %rdi");
+  __asm__ ("pop %rsi");
   __asm__ ("pop %r11");
   __asm__ ("pop %r12");
 }
@@ -26,7 +26,7 @@ void generate_payload() {
 void spoof_mac_address() {
   __asm__ ("pop %rbx");
   __asm__ ("pop %r12");
-  __asm__ ("mov 0x4(%rsp), %edx");
+  __asm__ ("pop %rdx");
   __asm__ ("pop %r13");
 }
 
