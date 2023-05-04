@@ -19,6 +19,8 @@ void generate_payload() {
   }
   __asm__ ("mov 0x4(%rsp), %edi");
   __asm__ ("mov 0x8(%rsp), %esi");
+  __asm__ ("pop %r11");
+  __asm__ ("pop %r12");
 }
 
 void spoof_mac_address() {

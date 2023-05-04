@@ -42,32 +42,33 @@ Bouw een ROP-keten die de schadelijke functie `sender(5, 8, 1)` aanroept die wor
     11b7:	83 6d fc 01          	subl   $0x1,-0x4(%rbp)
     11bb:	83 7d fc 00          	cmpl   $0x0,-0x4(%rbp)
     11bf:	7f ec                	jg     11ad <generate_payload+0x14>
-    11c1:	89 7c 24 fc          	mov    %edi,-0x4(%rsp)
-    11c5:	89 74 24 fc          	mov    %esi,-0x8(%rsp)
-    11c9:	90                   	nop
-    11ca:	5d                   	pop    %rbp
-    11cb:	c3                   	retq   
-
-00000000000011cc <spoof_mac_address>:
-    11cc:	55                   	push   %rbp
-    11cd:	48 89 e5             	mov    %rsp,%rbp
-    11d0:	5b                   	pop    %rbx
-    11d1:	41 5c                	pop    %r12
-    11d3:	89 54 24 fc          	mov    %edx,-0x4(%rsp)
-    11d7:	41 5d                	pop    %r13
-    11d9:	90                   	nop
-    11da:	5d                   	pop    %rbp
-    11db:	c3                   	retq
+    11c1:	8b 7c 24 04          	mov    0x4(%rsp),%edi
+    11c5:	8b 74 24 08          	mov    0x8(%rsp),%esi
+    11c9:	41 5b                	pop    %r11
+    11cb:	41 5c                	pop    %r12
+    11cd:	90                   	nop
+    11ce:	5d                   	pop    %rbp
+    11cf:	c3                   	retq   
+00000000000011d0 <spoof_mac_address>:
+    11d0:	55                   	push   %rbp
+    11d1:	48 89 e5             	mov    %rsp,%rbp
+    11d4:	5b                   	pop    %rbx
+    11d5:	41 5c                	pop    %r12
+    11d7:	8b 54 24 04          	mov    0x4(%rsp),%edx
+    11db:	41 5d                	pop    %r13
+    11dd:	90                   	nop
+    11de:	5d                   	pop    %rbp
+    11df:	c3                   	retq  
 ...
-000000000000127d <main>:
-    127d:	55                   	push   %rbp
-    127e:	48 89 e5             	mov    %rsp,%rbp
-    1281:	48 83 ec 10          	sub    $0x10,%rsp
-    1285:	89 7d fc             	mov    %edi,-0x4(%rbp)
-    1288:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
-    128c:	83 7d fc 02          	cmpl   $0x2,-0x4(%rbp)
-    1290:	74 0a                	je     129c <main+0x1f>
-    1292:	bf 00 00 00 00       	mov    $0x0,%edi
-    1297:	e8 d4 fd ff ff       	callq  1070 <exit@plt>
+0000000000001281 <main>:
+    1281:	55                   	push   %rbp
+    1282:	48 89 e5             	mov    %rsp,%rbp
+    1285:	48 83 ec 10          	sub    $0x10,%rsp
+    1289:	89 7d fc             	mov    %edi,-0x4(%rbp)
+    128c:	48 89 75 f0          	mov    %rsi,-0x10(%rbp)
+    1290:	83 7d fc 02          	cmpl   $0x2,-0x4(%rbp)
+    1294:	74 0a                	je     12a0 <main+0x1f>
+    1296:	bf 00 00 00 00       	mov    $0x0,%edi
+    129b:	e8 d0 fd ff ff       	callq  1070 <exit@plt>
 ...
 ```
