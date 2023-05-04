@@ -43,7 +43,7 @@ Bouw een ROP-keten die de schadelijke functie `sender(5, 8, 1)` aanroept die wor
     11bb:	83 7d fc 00          	cmpl   $0x0,-0x4(%rbp)
     11bf:	7f ec                	jg     11ad <generate_payload+0x14>
     11c1:	89 7c 24 fc          	mov    %edi,-0x4(%rsp)
-    11c5:	89 74 24 fc          	mov    %esi,-0x4(%rsp)
+    11c5:	89 74 24 fc          	mov    %esi,-0x8(%rsp)
     11c9:	90                   	nop
     11ca:	5d                   	pop    %rbp
     11cb:	c3                   	retq   
