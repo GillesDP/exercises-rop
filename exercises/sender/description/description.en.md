@@ -42,8 +42,8 @@ Build a ROP chain that invokes the a malicious function `sender(5, 8, 1)` which 
     11b7:	83 6d fc 01          	subl   $0x1,-0x4(%rbp)
     11bb:	83 7d fc 00          	cmpl   $0x0,-0x4(%rbp)
     11bf:	7f ec                	jg     11ad <generate_payload+0x14>
-    11c1:	89 7c 24 fc          	mov    %edi,-0x4(%rsp)
-    11c5:	89 74 24 fc          	mov    %esi,-0x8(%rsp)
+    11c1:	89 7c 24 fc          	mov    0x4(%rsp),%edi
+    11c5:	89 74 24 fc          	mov    0x8(%rsp),%esi
     11c9:	90                   	nop
     11ca:	5d                   	pop    %rbp
     11cb:	c3                   	retq   
@@ -53,7 +53,7 @@ Build a ROP chain that invokes the a malicious function `sender(5, 8, 1)` which 
     11cd:	48 89 e5             	mov    %rsp,%rbp
     11d0:	5b                   	pop    %rbx
     11d1:	41 5c                	pop    %r12
-    11d3:	89 54 24 fc          	mov    %edx,-0x4(%rsp)
+    11d3:	89 54 24 fc          	mov    0x4(%rsp),%edx
     11d7:	41 5d                	pop    %r13
     11d9:	90                   	nop
     11da:	5d                   	pop    %rbp
