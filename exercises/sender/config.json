@@ -1,0 +1,19 @@
+{
+  "type": "exercise",
+  "description": {
+    "names": {
+      "nl": "ROP: Verzender",
+      "en": "ROP: Sender"
+    }
+  },
+  "natural_language": "en",
+  "resources": "exercises/example/",
+  "source": "exercises/example/solution/solution.txt",
+  "judge": ".",
+  "workdir": "workdir/",
+  "programming_language": "txt",
+  "access": "private",
+  "time_limit": 10,
+  "memory_limit": 10000000,
+  "labels": ["ROP", "Return Oriented Programming"]
+}
